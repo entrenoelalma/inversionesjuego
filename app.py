@@ -90,6 +90,7 @@ def load_data():
             df[c] = pd.to_numeric(df[c], errors="coerce")
     df = df.dropna(subset=["Año"])
     df["Año"] = df["Año"].astype(int)
+    st.write(df.columns.tolist())  # para ver los nombres reales de columnas
     return df.sort_values("Año").reset_index(drop=True)
 
 
