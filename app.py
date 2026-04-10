@@ -196,6 +196,14 @@ with tab1:
     if not seleccion:
         st.info("Seleccioná al menos un activo en el panel lateral.")
     else:
+        # Definir ytitle por defecto según el modo seleccionado
+        if modo_viz == "Índice base 100":
+            ytitle = "Índice (base 100)"
+        elif modo_viz == "Retorno acumulado %":
+            ytitle = "Retorno acumulado (%)"
+        else:
+            ytitle = "Precio (USD)"
+
         fig = go.Figure()
         for i, nombre in enumerate(seleccion):
             col_key = ACTIVOS[nombre]
@@ -207,13 +215,10 @@ with tab1:
 
             if modo_viz == "Índice base 100":
                 y_plot = (y_vals / y_vals[0]) * 100
-                ytitle = "Índice (base 100)"
             elif modo_viz == "Retorno acumulado %":
                 y_plot = ((y_vals / y_vals[0]) - 1) * 100
-                ytitle = "Retorno acumulado (%)"
             else:
                 y_plot = y_vals
-                ytitle = "Precio (USD)"
 
             fig.add_trace(go.Scatter(
                 x=serie["Año"], y=y_plot,
